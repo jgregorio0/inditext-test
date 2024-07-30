@@ -20,11 +20,11 @@ public class PriceController {
     private final PriceService priceService;
 
     @GetMapping(value = "prices")
-    public ResponseEntity<PriceDto> getProductPrice(
+    public ResponseEntity<PriceDto> getPrice(
             @RequestParam("productId") int productId,
             @RequestParam("brandId") int brandId,
             @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
-        return ResponseEntity.of(priceService.getProductPrice(productId, brandId, date));
+        return ResponseEntity.of(priceService.getPrice(productId, brandId, date));
     }
 
 }

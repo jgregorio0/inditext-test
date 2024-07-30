@@ -27,7 +27,7 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     @Cacheable("prices")
-    public Optional<PriceDto> getProductPrice(int productId, int brandId, LocalDateTime date) {
+    public Optional<PriceDto> getPrice(int productId, int brandId, LocalDateTime date) {
         return priceRepository
                 // find all prices
                 .findAll(
