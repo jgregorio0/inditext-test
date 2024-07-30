@@ -14,9 +14,9 @@ public class PriceDto {
     private int productId;
     private int brandId;
     private int priceList;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private double pvp;
+    private String startDate;
+    private String endDate;
+    private double price;
     private String currency;
 
 }
