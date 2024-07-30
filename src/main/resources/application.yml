@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: inditex
+# H2 database configuration
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: username
+    password: password
+    initialization-mode: always # database initiation by hibernate disabled. It is done by schema.sql
+  sql:
+    init:
+      mode: always # creating tables and inserting default data for development
+  #h2:
+  #  console:
+  #    enabled: true # enable console logging
+  jpa:
+    database: H2
+    show-sql: true # log queries for development
+    hibernate:
+      ddl-auto: none # database initiation by hibernate disabled. It is done by schema.sql
