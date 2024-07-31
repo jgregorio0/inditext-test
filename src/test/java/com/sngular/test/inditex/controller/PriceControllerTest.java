@@ -29,7 +29,7 @@ public class PriceControllerTest {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Test
-    public void givenFilters_whenPriceFound_thenReturnPrice() throws Exception {
+    public void givenFiltersThatMatch1Price_whenGetPrice_thenReturnPrice() throws Exception {
         // GIVEN filters
         final int productId = 1;
         final int brandId = 2;
@@ -50,6 +50,7 @@ public class PriceControllerTest {
                         .param("productId", String.valueOf(productId))
                         .param("brandId", String.valueOf(brandId))
                         .param("date", date))
+        // THEN
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productId").value(priceFound.getProductId()))
                 .andExpect(jsonPath("$.brandId").value(priceFound.getBrandId()))
@@ -58,6 +59,39 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.price").value(priceFound.getPrice()))
                 .andExpect(jsonPath("$.priceList").value(priceFound.getPriceList()))
                 .andExpect(jsonPath("$.currency").value(priceFound.getCurrency()));
+    }
+
+    @Test
+    public void givenFiltersThatMatchesNone_whenGetPrice_thenNotFound() throws Exception {
+        // GIVEN filters
+        final int productId = 2;
+        final int brandId = 2;
+        final String date = "2024-01-01 00:00:00";
+        // WHEN get price
+        when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, formatter)))
+                .thenReturn(Optional.empty());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/v1/prices")
+                        .param("productId", String.valueOf(productId))
+                        .param("brandId", String.valueOf(brandId))
+                        .param("date", date))
+        // THEN
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void givenWrongFilters_whenGetPrice_thenBadRequest() throws Exception {
+        // GIVEN filters
+        final int productId = 2;
+        final int brandId = 2;
+        // no date
+        // WHEN get price
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/v1/prices")
+                        .param("productId", String.valueOf(productId))
+                        .param("brandId", String.valueOf(brandId)))
+        // THEN
+                .andExpect(status().isBadRequest());
     }
 
 }
