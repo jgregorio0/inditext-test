@@ -7,6 +7,5 @@ CREATE TABLE IF NOT EXISTS prices (
    product_id INT NOT NULL,
    priority INT NOT NULL,
    price DECIMAL(4, 2) NOT NULL,
-   currency VARCHAR(3) NOT NULL,
-   PRIMARY KEY (id)
+   currency VARCHAR(3) NOT NULL
 );
