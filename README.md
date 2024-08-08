@@ -99,15 +99,13 @@ For the endpoint, we will use the HTTP GET method and the route /api/v1/prices b
 [PriceServiceImpl.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fservice%2FPriceServiceImpl.java)
 The business layer serves as an intermediary between the presentation and persistence layers.
 
-It contains business logic, however, in this sample project, it is reduced to execute the findAll method from the persistence layer while specifying filters, pagination, and sorting options. Additionally, it maps the result to DTO. 
+It contains business logic, however, in this sample project, it is reduced to execute the find method from the persistence layer while specifying filters, sorting and limiting rows options. Additionally, it maps the result to DTO. 
 
 ## Persistence layer
 [PriceRepository.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Frepository%2FPriceRepository.java)
 The persistence layer is between the business layer and the database layer.
 
-PriceRepository extends from JPARepository, providing access to the findAll method, which is available and implemented by default.
-
-Additionally, it extends JpaSpecificationExecutor, enabling the use of Specifications for filtering data.
+PriceRepository extends from JPARepository, providing access to query methods.
 
 ## Database layer
 [PriceEntity.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fdomain%2FPriceEntity.java)
@@ -124,8 +122,10 @@ The following scripts are provided for database initialization during testing st
 ## Cache
 Caching endpoint /api/v1/prices to improve performance when request by the same parameters.
 
-## Pagination and sorting
-Pagination and sorting are implemented when searching for prices to database so the last result sorted by priority descending is return.   
+## Sorting and limiting
+Sorting by priority descending is implemented when searching for prices to database.
+Result set is limited to 1 result.
+So the first result sorted by priority descending is return.
 
 # Patterns
 - Builder Pattern: Used for the creation of DTO objects during testing stage.
