@@ -48,13 +48,13 @@ public class PriceIntegrationTest {
         // THEN returns price 1: (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(brandZara, response.getBody().getBrandId());
-        assertEquals("2020-06-14 00:00:00", response.getBody().getStartDate());
-        assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
-        assertEquals(1, response.getBody().getPriceList());
-        assertEquals(product35355, response.getBody().getProductId());
+        assertEquals(brandZara, response.getBody().brandId());
+        assertEquals("2020-06-14 00:00:00", response.getBody().startDate());
+        assertEquals("2020-12-31 23:59:59", response.getBody().endDate());
+        assertEquals(1, response.getBody().priceList());
+        assertEquals(product35355, response.getBody().productId());
         assertEquals(0, BigDecimal.valueOf(35.50).compareTo(response.getBody().getPrice()));
-        assertEquals("EUR", response.getBody().getCurrency());
+        assertEquals("EUR", response.getBody().currency());
     }
 
     /**
@@ -72,13 +72,13 @@ public class PriceIntegrationTest {
         // THEN returns price 2: (2, 1, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 35455, 1, 25.45, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(brandZara, response.getBody().getBrandId());
-        assertEquals("2020-06-14 15:00:00", response.getBody().getStartDate());
-        assertEquals("2020-06-14 18:30:00", response.getBody().getEndDate());
-        assertEquals(2, response.getBody().getPriceList());
-        assertEquals(product35355, response.getBody().getProductId());
+        assertEquals(brandZara, response.getBody().brandId());
+        assertEquals("2020-06-14 15:00:00", response.getBody().startDate());
+        assertEquals("2020-06-14 18:30:00", response.getBody().endDate());
+        assertEquals(2, response.getBody().priceList());
+        assertEquals(product35355, response.getBody().productId());
         assertEquals(0, BigDecimal.valueOf(25.45).compareTo(response.getBody().getPrice()));
-        assertEquals("EUR", response.getBody().getCurrency());
+        assertEquals("EUR", response.getBody().currency());
     }
 
     /**
@@ -96,13 +96,13 @@ public class PriceIntegrationTest {
         // THEN returns price 1: (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(brandZara, response.getBody().getBrandId());
-        assertEquals("2020-06-14 00:00:00", response.getBody().getStartDate());
-        assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
-        assertEquals(1, response.getBody().getPriceList());
-        assertEquals(product35355, response.getBody().getProductId());
+        assertEquals(brandZara, response.getBody().brandId());
+        assertEquals("2020-06-14 00:00:00", response.getBody().startDate());
+        assertEquals("2020-12-31 23:59:59", response.getBody().endDate());
+        assertEquals(1, response.getBody().priceList());
+        assertEquals(product35355, response.getBody().productId());
         assertEquals(0, BigDecimal.valueOf(35.50).compareTo(response.getBody().getPrice()));
-        assertEquals("EUR", response.getBody().getCurrency());
+        assertEquals("EUR", response.getBody().currency());
     }
 
     /**
@@ -120,13 +120,13 @@ public class PriceIntegrationTest {
         // THEN returns price 3: (3, 1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR')
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(brandZara, response.getBody().getBrandId());
-        assertEquals("2020-06-15 00:00:00", response.getBody().getStartDate());
-        assertEquals("2020-06-15 11:00:00", response.getBody().getEndDate());
-        assertEquals(3, response.getBody().getPriceList());
-        assertEquals(product35355, response.getBody().getProductId());
+        assertEquals(brandZara, response.getBody().brandId());
+        assertEquals("2020-06-15 00:00:00", response.getBody().startDate());
+        assertEquals("2020-06-15 11:00:00", response.getBody().endDate());
+        assertEquals(3, response.getBody().priceList());
+        assertEquals(product35355, response.getBody().productId());
         assertEquals(0, BigDecimal.valueOf(30.50).compareTo(response.getBody().getPrice()));
-        assertEquals("EUR", response.getBody().getCurrency());
+        assertEquals("EUR", response.getBody().currency());
     }
 
     /**
@@ -144,12 +144,12 @@ public class PriceIntegrationTest {
         // THEN returns price 3: (3, 1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR')
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(brandZara, response.getBody().getBrandId());
-        assertEquals("2020-06-15 16:00:00", response.getBody().getStartDate());
-        assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
-        assertEquals(4, response.getBody().getPriceList());
-        assertEquals(product35355, response.getBody().getProductId());
+        assertEquals(brandZara, response.getBody().brandId());
+        assertEquals("2020-06-15 16:00:00", response.getBody().startDate());
+        assertEquals("2020-12-31 23:59:59", response.getBody().endDate());
+        assertEquals(4, response.getBody().priceList());
+        assertEquals(product35355, response.getBody().productId());
         assertEquals(0, BigDecimal.valueOf(38.95).compareTo(response.getBody().getPrice()));
-        assertEquals("EUR", response.getBody().getCurrency());
+        assertEquals("EUR", response.getBody().currency());
     }
 }

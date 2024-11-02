@@ -51,13 +51,13 @@ public class PriceControllerTest {
                         .param("date", date))
         // THEN
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.productId").value(priceFound.getProductId()))
-                .andExpect(jsonPath("$.brandId").value(priceFound.getBrandId()))
-                .andExpect(jsonPath("$.startDate").value(priceFound.getStartDate()))
-                .andExpect(jsonPath("$.endDate").value(priceFound.getEndDate()))
+                .andExpect(jsonPath("$.productId").value(priceFound.productId()))
+                .andExpect(jsonPath("$.brandId").value(priceFound.brandId()))
+                .andExpect(jsonPath("$.startDate").value(priceFound.startDate()))
+                .andExpect(jsonPath("$.endDate").value(priceFound.endDate()))
                 .andExpect(jsonPath("$.price").value(priceFound.getPrice()))
-                .andExpect(jsonPath("$.priceList").value(priceFound.getPriceList()))
-                .andExpect(jsonPath("$.currency").value(priceFound.getCurrency()));
+                .andExpect(jsonPath("$.priceList").value(priceFound.priceList()))
+                .andExpect(jsonPath("$.currency").value(priceFound.currency()));
     }
 
     @Test
