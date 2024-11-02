@@ -1,3 +1,4 @@
+# default profile
 server:
   port: 8080
 spring:
@@ -8,11 +9,16 @@ spring:
     driverClassName: org.h2.Driver
     username: user
     password: pass
+  # This property controls the execution of SQL scripts during application startup
   sql:
     init:
-      mode: never # todo create local profile and add schema.sql and data.sql for script-based initialization. Create a test profile to disable script-base initialization.
+      mode: always # Always execute SQL scripts
   jpa:
     database: H2
     show-sql: true # log queries for development
     hibernate:
-      ddl-auto: none # disable hibernate database initialization.
+      ddl-auto: update # Hibernate should update the database schema based on the entity definitions
+  # Enable H2 console to review data initialization
+  h2:
+    console:
+      enabled: true

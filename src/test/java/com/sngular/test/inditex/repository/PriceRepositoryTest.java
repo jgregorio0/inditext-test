@@ -4,6 +4,7 @@ import com.sngular.test.inditex.domain.PriceEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 @DataJpaTest
 @Sql(scripts = {"/prices_schema.sql", "/insert_prices_data.sql"}, executionPhase = BEFORE_TEST_CLASS)
 @Sql(scripts = {"/delete_prices_data.sql"}, executionPhase = AFTER_TEST_CLASS)
+@ActiveProfiles("test")
 public class PriceRepositoryTest {
 
     @Autowired
