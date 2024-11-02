@@ -60,7 +60,7 @@ Key aspects of the implementation will not be considered for this project:
 - Logging for Debugging and Troubleshooting.
 - Centralized exception handling using ControllerAdvice.
 - Data specifications have not been provided, therefore, it is necessary to review the sizes of the database columns.
-- Different profiles configuration. 
+- Different Spring profiles configuration for multiple environments. 
 
 ## Directory structure
 Directory structure follows a Maven standard directory layout including src/main/ java and resources for source code and src/test/ java and resources for Testing.
@@ -92,7 +92,8 @@ For the endpoint, we will use the HTTP GET method and the route /api/v1/prices b
 - The GET method denotes that we are getting a resource.
 - /prices indicates that a resource of type price will be returned.
 - Accepts product identifier, brand identifier, and application date request parameters for filtering prices.
-- It returns the highest priority price that matches the given filters. The result includes: product identifier, brand indentifier, price list, start date, end date, price and currency.
+- It returns the highest priority price that aligns with the specified filters, as prices are ordered in descending order of priority. 
+- The result includes: product identifier, brand indentifier, price list, start date, end date, price and currency.
 - If there is no match it returns error 404 not found.
 
 ## Business layer
@@ -109,7 +110,7 @@ PriceRepository extends from JPARepository, providing access to query methods.
 
 ## Database layer
 [PriceEntity.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fdomain%2FPriceEntity.java)
-The database layer reflects the database schema as defined in the test request.
+The database layer reflects the database schema in the entity: [PriceEntity.java](src/main/java/com/sngular/test/inditex/domain/PriceEntity.java) 
 
 ## Database initialization
 Script-base and Hibernate initialization have been disabled on application.yml configuration file. 
@@ -132,6 +133,6 @@ So the first result sorted by priority descending is return.
 - Dependency injection Pattern with Constructor Injection: Used to promote loose coupling and improving code reusability.
 
 # Tests
-- Integration testing is conducted to verify that Tests 1, 2, 3, 4, and 5 pass successfully: [PriceIntegrationTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fintegration%2FPriceIntegrationTest.java).
+- Integration testing is conducted to verify that required tests 1, 2, 3, 4, and 5 ([TestJava2023 (2).txt](TestJava2023%20%282%29.txt)) pass successfully: [PriceIntegrationTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fintegration%2FPriceIntegrationTest.java).
 - Presentation layer is tested on [PriceControllerTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fcontroller%2FPriceControllerTest.java).
 - Persistence layer is tested in [PriceRepositoryTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Frepository%2FPriceRepositoryTest.java).
