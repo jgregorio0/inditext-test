@@ -13,12 +13,13 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_CLASS;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(scripts = {"/prices_schema.sql", "/insert_prices_data.sql"}, executionPhase = BEFORE_TEST_CLASS)
+@Sql(scripts = {"/insert_prices_data.sql"}, executionPhase = BEFORE_TEST_CLASS)
 @Sql(scripts = {"/delete_prices_data.sql"}, executionPhase = AFTER_TEST_CLASS)
 @ActiveProfiles("test")
 public class PriceIntegrationTest {

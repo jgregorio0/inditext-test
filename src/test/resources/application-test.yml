@@ -17,4 +17,4 @@ spring:
     database: H2
     show-sql: true # log queries for development
     hibernate:
-      ddl-auto: update # Hibernate should update the database schema based on the entity definitions.
+      ddl-auto: create-drop # Hibernate should create and drop the database schema based on the entity definitions when testing
