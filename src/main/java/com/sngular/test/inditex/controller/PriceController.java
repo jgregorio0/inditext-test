@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
+import static com.sngular.test.inditex.util.DateUtils.DATE_TIME_PATTERN;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class PriceController {
     public ResponseEntity<PriceDto> getPrice(
             @RequestParam("productId") int productId,
             @RequestParam("brandId") int brandId,
-            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date) {
+            @RequestParam("date") @DateTimeFormat(pattern = DATE_TIME_PATTERN) LocalDateTime date) {
         return ResponseEntity.of(priceService.getPrice(productId, brandId, date));
     }
 

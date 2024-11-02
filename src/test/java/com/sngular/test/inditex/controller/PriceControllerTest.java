@@ -11,9 +11,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import static com.sngular.test.inditex.util.DateUtils.DATE_TIME_FORMATTER;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,8 +26,6 @@ public class PriceControllerTest {
 
     @MockBean
     PriceService priceService;
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Test
     public void givenFiltersThatMatch1Price_whenGetPrice_thenReturnPrice() throws Exception {
@@ -44,7 +42,7 @@ public class PriceControllerTest {
                 .price(BigDecimal.valueOf(99.99))
                 .priceList(3)
                 .currency("EUR").build();
-        when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, formatter)))
+        when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, DATE_TIME_FORMATTER)))
                 .thenReturn(Optional.of(priceFound));
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/prices")
@@ -69,7 +67,7 @@ public class PriceControllerTest {
         final int brandId = 2;
         final String date = "2024-01-01 00:00:00";
         // WHEN get price
-        when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, formatter)))
+        when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, DATE_TIME_FORMATTER)))
                 .thenReturn(Optional.empty());
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/prices")
