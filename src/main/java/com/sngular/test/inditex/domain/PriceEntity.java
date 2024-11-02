@@ -38,6 +38,6 @@ public class PriceEntity {
     @Column(name = "price", nullable = false, precision = 4, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "currency", nullable = false)
+    @Column(name = "currency", nullable = false, length = 3)
     private String currency;
 }
