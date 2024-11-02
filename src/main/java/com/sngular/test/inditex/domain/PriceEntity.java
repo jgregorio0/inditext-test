@@ -1,8 +1,10 @@
 package com.sngular.test.inditex.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,8 +35,8 @@ public class PriceEntity {
     @Column(name = "priority", nullable = false)
     private int priority;
 
-    @Column(name = "price", nullable = false)
-    private double price;
+    @Column(name = "price", nullable = false, precision = 4, scale = 2)
+    private BigDecimal price;
 
     @Column(name = "currency", nullable = false)
     private String currency;

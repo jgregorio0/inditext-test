@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class PriceRepositoryTest {
         assertEquals(1, found.get().getBrandId());
         assertEquals("2020-06-14 00:00:00", found.get().getStartDate().format(formatter));
         assertEquals("2020-12-31 23:59:59", found.get().getEndDate().format(formatter));
-        assertEquals(35.50, found.get().getPrice());
+        assertEquals(0, BigDecimal.valueOf(35.50).compareTo(found.get().getPrice()));
         assertEquals(1, found.get().getPriceList());
         assertEquals("EUR", found.get().getCurrency());
         assertEquals(0, found.get().getPriority());

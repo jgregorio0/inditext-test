@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.math.BigDecimal;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_CLASS;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
 
@@ -42,12 +44,13 @@ public class PriceIntegrationTest {
         ResponseEntity<PriceDto> response = restTemplate.getForEntity(url, PriceDto.class);
         // THEN returns price 1: (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertEquals(brandZara, response.getBody().getBrandId());
         assertEquals("2020-06-14 00:00:00", response.getBody().getStartDate());
         assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
         assertEquals(1, response.getBody().getPriceList());
         assertEquals(product35355, response.getBody().getProductId());
-        assertEquals(35.50, response.getBody().getPrice());
+        assertEquals(0, BigDecimal.valueOf(35.50).compareTo(response.getBody().getPrice()));
         assertEquals("EUR", response.getBody().getCurrency());
     }
 
@@ -65,12 +68,13 @@ public class PriceIntegrationTest {
         ResponseEntity<PriceDto> response = restTemplate.getForEntity(url, PriceDto.class);
         // THEN returns price 2: (2, 1, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 35455, 1, 25.45, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertEquals(brandZara, response.getBody().getBrandId());
         assertEquals("2020-06-14 15:00:00", response.getBody().getStartDate());
         assertEquals("2020-06-14 18:30:00", response.getBody().getEndDate());
         assertEquals(2, response.getBody().getPriceList());
         assertEquals(product35355, response.getBody().getProductId());
-        assertEquals(25.45, response.getBody().getPrice());
+        assertEquals(0, BigDecimal.valueOf(25.45).compareTo(response.getBody().getPrice()));
         assertEquals("EUR", response.getBody().getCurrency());
     }
 
@@ -88,12 +92,13 @@ public class PriceIntegrationTest {
         ResponseEntity<PriceDto> response = restTemplate.getForEntity(url, PriceDto.class);
         // THEN returns price 1: (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertEquals(brandZara, response.getBody().getBrandId());
         assertEquals("2020-06-14 00:00:00", response.getBody().getStartDate());
         assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
         assertEquals(1, response.getBody().getPriceList());
         assertEquals(product35355, response.getBody().getProductId());
-        assertEquals(35.50, response.getBody().getPrice());
+        assertEquals(0, BigDecimal.valueOf(35.50).compareTo(response.getBody().getPrice()));
         assertEquals("EUR", response.getBody().getCurrency());
     }
 
@@ -111,12 +116,13 @@ public class PriceIntegrationTest {
         ResponseEntity<PriceDto> response = restTemplate.getForEntity(url, PriceDto.class);
         // THEN returns price 3: (3, 1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR')
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertEquals(brandZara, response.getBody().getBrandId());
         assertEquals("2020-06-15 00:00:00", response.getBody().getStartDate());
         assertEquals("2020-06-15 11:00:00", response.getBody().getEndDate());
         assertEquals(3, response.getBody().getPriceList());
         assertEquals(product35355, response.getBody().getProductId());
-        assertEquals(30.50, response.getBody().getPrice());
+        assertEquals(0, BigDecimal.valueOf(30.50).compareTo(response.getBody().getPrice()));
         assertEquals("EUR", response.getBody().getCurrency());
     }
 
@@ -134,12 +140,13 @@ public class PriceIntegrationTest {
         ResponseEntity<PriceDto> response = restTemplate.getForEntity(url, PriceDto.class);
         // THEN returns price 3: (3, 1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR')
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertEquals(brandZara, response.getBody().getBrandId());
         assertEquals("2020-06-15 16:00:00", response.getBody().getStartDate());
         assertEquals("2020-12-31 23:59:59", response.getBody().getEndDate());
         assertEquals(4, response.getBody().getPriceList());
         assertEquals(product35355, response.getBody().getProductId());
-        assertEquals(38.95, response.getBody().getPrice());
+        assertEquals(0, BigDecimal.valueOf(38.95).compareTo(response.getBody().getPrice()));
         assertEquals("EUR", response.getBody().getCurrency());
     }
 }

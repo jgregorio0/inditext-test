@@ -110,7 +110,11 @@ PriceRepository extends from JPARepository, providing access to query methods.
 
 ## Database layer
 [PriceEntity.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fdomain%2FPriceEntity.java)
-The database layer reflects the database schema in the entity: [PriceEntity.java](src/main/java/com/sngular/test/inditex/domain/PriceEntity.java) 
+The database layer reflects the database schema in the entity: [PriceEntity.java](src/main/java/com/sngular/test/inditex/domain/PriceEntity.java)
+
+PriceEntity field price is defined as BigDecimal to 
+- Provide exact decimal arithmetic, avoiding floating-point precision issues
+- Allows specifying precision = 4 and scale = 2. This field must be fixed following database field requirements. 
 
 ## Database initialization
 Script-base and Hibernate initialization have been disabled on application.yml configuration file. 
@@ -120,13 +124,18 @@ The following scripts are provided for database initialization during testing st
 [insert_prices_data.sql](src%2Fmain%2Fresources%2Finsert_prices_data.sql)
 [prices_schema.sql](src%2Fmain%2Fresources%2Fprices_schema.sql)
 
+Price is defined as a DECIMAL to:
+- Provide fixed precision = 4 and scale = 2. Total digits are 4. Decimal places are 2.
+- The maximum allowable value is 99,99. This value is established based on the test requirements. However, this limitation may be subject to review for production purposes. 
+
 ## Cache
 Caching endpoint /api/v1/prices to improve performance when request by the same parameters.
 
 ## Sorting and limiting
-Sorting by priority descending is implemented when searching for prices to database.
-Result set is limited to 1 result.
-So the first result sorted by priority descending is return.
+Sorting is utilized when querying prices from the database:
+- Sorting by priority descending is implemented when searching for prices to database.
+- Result set is limited to 1 result. 
+- As a result of sorting, it returns the highest priority price that aligns with the specified filters.
 
 # Patterns
 - Builder Pattern: Used for the creation of DTO objects during testing stage.

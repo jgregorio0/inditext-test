@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class PriceControllerTest {
                 .brandId(brandId)
                 .startDate("2024-01-01 00:00:00")
                 .endDate("2024-01-02 00:00:00")
-                .price(9.99)
+                .price(BigDecimal.valueOf(99.99))
                 .priceList(3)
                 .currency("EUR").build();
         when(priceService.getPrice(productId, brandId, LocalDateTime.parse(date, formatter)))
