@@ -57,10 +57,8 @@ Key aspects of the implementation will not be considered for this project:
 - Security measures using Spring Security, although crucial for real-world internet-exposed endpoints, are omitted as this is a test scenario.
 - OpenAPI documentation which is recommended for proper API documentation.
 - Develop Dockerfile to deploy isolated development environment and make easier reproducibility.
-- Logging for Debugging and Troubleshooting.
 - Centralized exception handling using ControllerAdvice.
 - Data specifications have not been provided, therefore, it is necessary to review the sizes of the database columns.
-- Different Spring profiles configuration for multiple environments. 
 
 ## Directory structure
 Directory structure follows a Maven standard directory layout including src/main/ java and resources for source code and src/test/ java and resources for Testing.
@@ -75,6 +73,7 @@ Additionally, the following packages have been included:
 - config: Spring context configurations.
 - dto: Data transfer objects.
 - mapper: MapStruct configuration for mapping objects.
+- util: Utility classes collection.
 
 ## Presentation layer
 [PriceController.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fcontroller%2FPriceController.java)
