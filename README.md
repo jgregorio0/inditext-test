@@ -57,7 +57,6 @@ Key aspects of the implementation will not be considered for this project:
 - Security measures using Spring Security, although crucial for real-world internet-exposed endpoints, are omitted as this is a test scenario.
 - OpenAPI documentation which is recommended for proper API documentation.
 - Develop Dockerfile to deploy isolated development environment and make easier reproducibility.
-- Centralized exception handling using ControllerAdvice.
 - Data specifications have not been provided, therefore, it is necessary to review the sizes of the database columns.
 
 ## Directory structure
@@ -137,6 +136,9 @@ Sorting is utilized when querying prices from the database:
 - Sorting by priority descending is implemented when searching for prices to database.
 - Result set is limited to 1 result. 
 - As a result of sorting, it returns the highest priority price that aligns with the specified filters.
+
+# Global exception handler
+Centralized exception handling that applies to all controllers in the application is implemented in [GlobalExceptionHandler.java](src/main/java/com/sngular/test/inditex/exception/GlobalExceptionHandler.java)
 
 # Patterns
 - Builder Pattern: Used for the creation of DTO objects during testing stage.
