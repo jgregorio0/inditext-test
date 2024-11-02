@@ -117,12 +117,14 @@ PriceEntity field price is defined as BigDecimal to
 - Allows specifying precision = 4 and scale = 2. This field must be fixed following database field requirements. 
 
 ## Database initialization
-Script-base and Hibernate initialization have been disabled on application.yml configuration file. 
+Script-base and Hibernate initialization have been enabled on application.yml configuration file for default profiles. 
+[data.sql](src/main/resources/data.sql)
+[schema.sql](src/main/resources/schema.sql)
 
-The following scripts are provided for database initialization during testing stage.
-[delete_prices_data.sql](src%2Fmain%2Fresources%2Fdelete_prices_data.sql)
-[insert_prices_data.sql](src%2Fmain%2Fresources%2Finsert_prices_data.sql)
-[prices_schema.sql](src%2Fmain%2Fresources%2Fprices_schema.sql)
+For testing, "test" profile is used. Script-base schema initialization is disabled in application-test.yml configuration file. Hibernate creates and drop schema based on Entities.
+The following scripts are provided for data initialization during testing stage.
+[delete_prices_data.sql](src/test/resources/delete_prices_data.sql)
+[insert_prices_data.sql](src/test/resources/insert_prices_data.sql)
 
 Price is defined as a DECIMAL to:
 - Provide fixed precision = 4 and scale = 2. Total digits are 4. Decimal places are 2.
@@ -143,5 +145,6 @@ Sorting is utilized when querying prices from the database:
 
 # Tests
 - Integration testing is conducted to verify that required tests 1, 2, 3, 4, and 5 ([TestJava2023 (2).txt](TestJava2023%20%282%29.txt)) pass successfully: [PriceIntegrationTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fintegration%2FPriceIntegrationTest.java).
-- Presentation layer is tested on [PriceControllerTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fcontroller%2FPriceControllerTest.java).
-- Persistence layer is tested in [PriceRepositoryTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Frepository%2FPriceRepositoryTest.java).
+- Presentation layer is tested on [PriceControllerTest.java](src/test/java/com/sngular/test/inditex/controller/PriceControllerTest.java)
+- Service layer is tested in [PriceServiceTest.java](src/test/java/com/sngular/test/inditex/service/PriceServiceTest.java)
+- Persistence layer is tested in [PriceRepositoryTest.java](src/test/java/com/sngular/test/inditex/repository/PriceRepositoryTest.java)
