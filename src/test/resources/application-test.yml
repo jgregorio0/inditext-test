@@ -1,4 +1,3 @@
-# Base configuration
 server:
   port: 8080
 spring:
@@ -18,3 +17,18 @@ spring:
     show-sql: true # log queries for development
     hibernate:
       ddl-auto: create-drop # Hibernate should create and drop the database schema based on the entity definitions when testing
+# Enable debug for project
+logging:
+  level:
+    com:
+      sngular:
+        test:
+          inditex: DEBUG
+    # Debug for hibernate statements
+    org:
+      hibernate:
+        SQL: DEBUG
+      # Debug for hibernate parameters and results
+      type:
+        descriptor:
+          sql: TRACE

@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.sngular.test.inditex.util.DateUtils.DATE_TIME_FORMATTER;
@@ -26,21 +26,33 @@ public class PriceRepositoryTest {
     private PriceRepository priceRepository;
 
     @Test
-    void testFind() {
-        // Given
-        final int priceId = 1;
-        // When
-        Optional<PriceEntity> found = priceRepository.findById(priceId);
-        // Then returns (1, 1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
+    void givenFilterMatchingMultiplePrices_whenFindFirst_thenHighestPriorityIsReturned() {
+        // GIVEN testing data inserted by insert_prices_data.sql
+        // id, brand_id, start_date,                end_date,           price_list, product_id, priority, price,    currency
+        // (1,       1, '2020-06-14 00:00:00', '2020-12-31 23:59:59',   1,          35455,      0,          35.50, 'EUR'),
+        // (2,       1, '2020-06-14 15:00:00', '2020-06-14 18:30:00',   2,          35455,      1,          25.45, 'EUR'),
+        // AND filter matching multiple results
+        int filterBrandId = 1;
+        int filterProductId = 35455;
+        LocalDateTime filterDate = LocalDateTime.from(
+                DATE_TIME_FORMATTER.parse("2020-06-14 16:00:00"));
+        // WHEN find first
+        Optional<PriceEntity> found = priceRepository
+                .findFirstByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+                        filterProductId, filterBrandId, filterDate, filterDate);
+        // THEN returns highest priority price id = 2
         assertTrue(found.isPresent());
-        assertEquals(priceId, found.get().getId());
-        assertEquals(35455, found.get().getProductId());
-        assertEquals(1, found.get().getBrandId());
-        assertEquals("2020-06-14 00:00:00", found.get().getStartDate().format(DATE_TIME_FORMATTER));
-        assertEquals("2020-12-31 23:59:59", found.get().getEndDate().format(DATE_TIME_FORMATTER));
-        assertEquals(0, BigDecimal.valueOf(35.50).compareTo(found.get().getPrice()));
-        assertEquals(1, found.get().getPriceList());
-        assertEquals("EUR", found.get().getCurrency());
-        assertEquals(0, found.get().getPriority());
+        assertEquals(2, found.get().getId());
+    }
+
+    @Test
+    void givenNullFilter_whenFindFirst_thenHighestPriorityIsReturned() {
+        // GIVEN null filter
+        // WHEN find first
+        Optional<PriceEntity> found = priceRepository
+                .findFirstByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
+                        0, 0, null, null);
+        // THEN returns highest priority price id = 2
+        assertTrue(found.isEmpty());
     }
 }
