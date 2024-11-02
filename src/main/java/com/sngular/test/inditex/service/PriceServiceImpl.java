@@ -4,7 +4,6 @@ import com.sngular.test.inditex.dto.PriceDto;
 import com.sngular.test.inditex.mapper.PriceMapper;
 import com.sngular.test.inditex.repository.PriceRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.util.Optional;
 @Service
 public class PriceServiceImpl implements PriceService {
 
-    @Autowired
     private final PriceRepository priceRepository;
     private final PriceMapper priceMapper;
 
