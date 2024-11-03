@@ -1,6 +1,6 @@
 package com.sngular.test.inditex.repository;
 
-import com.sngular.test.inditex.domain.PriceEntity;
+import com.sngular.test.inditex.model.PriceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.sngular.test.inditex.service;
 
-import com.sngular.test.inditex.domain.PriceEntity;
+import com.sngular.test.inditex.model.PriceEntity;
 import com.sngular.test.inditex.dto.PriceDto;
 import com.sngular.test.inditex.mapper.PriceMapper;
 import com.sngular.test.inditex.repository.PriceRepository;

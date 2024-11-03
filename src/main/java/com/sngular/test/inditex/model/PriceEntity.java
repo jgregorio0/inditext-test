@@ -1,4 +1,4 @@
-package com.sngular.test.inditex.domain;
+package com.sngular.test.inditex.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

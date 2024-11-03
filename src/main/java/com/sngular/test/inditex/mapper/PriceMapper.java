@@ -1,6 +1,6 @@
 package com.sngular.test.inditex.mapper;
 
-import com.sngular.test.inditex.domain.PriceEntity;
+import com.sngular.test.inditex.model.PriceEntity;
 import com.sngular.test.inditex.dto.PriceDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
