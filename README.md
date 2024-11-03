@@ -143,6 +143,7 @@ Centralized exception handling that applies to all controllers in the applicatio
 # Patterns
 - Builder Pattern: Used for the creation of DTO objects during testing stage.
 - Dependency injection Pattern with Constructor Injection: Used to promote loose coupling and improving code reusability.
+- Interceptor pattern: Used to implement a centralized exception handler.
 
 # Tests
 - Integration testing is conducted to verify that required tests 1, 2, 3, 4, and 5 ([TestJava2023 (2).txt](TestJava2023%20%282%29.txt)) pass successfully: [PriceIntegrationTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fintegration%2FPriceIntegrationTest.java).
