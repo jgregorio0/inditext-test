@@ -56,8 +56,8 @@ I will design a REST API based on Java, using the Spring Boot framework to expos
 Key aspects of the implementation will not be considered for this project:
 - Security measures using Spring Security, although crucial for real-world internet-exposed endpoints, are omitted as this is a test scenario.
 - OpenAPI documentation which is recommended for proper API documentation.
-- Develop Dockerfile to deploy isolated development environment and make easier reproducibility.
-- Data specifications have not been provided, therefore, it is necessary to review the sizes of the database columns.
+- Dockerfile to deploy isolated development environment and make easier reproducibility.
+- Detailed data specifications have not been provided, therefore, the definition of the database is very simple.
 
 ## Directory structure
 Directory structure follows a Maven standard directory layout including src/main/ java and resources for source code and src/test/ java and resources for Testing.
@@ -73,6 +73,7 @@ Additionally, the following packages have been included:
 - dto: Data transfer objects.
 - mapper: MapStruct configuration for mapping objects.
 - util: Utility classes collection.
+- exception: Centralized exception controller and custom exceptions.
 
 ## Presentation layer
 [PriceController.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fcontroller%2FPriceController.java)
@@ -91,8 +92,10 @@ For the endpoint, we will use the HTTP GET method and the route /api/v1/prices b
 - /prices indicates that a resource of type price will be returned.
 - Accepts product identifier, brand identifier, and application date request parameters for filtering prices.
 - It returns the highest priority price that aligns with the specified filters, as prices are ordered in descending order of priority. 
-- The result includes: product identifier, brand indentifier, price list, start date, end date, price and currency.
-- If there is no match it returns error 404 not found.
+- The result includes: product identifier, brand identifier, price list, start date, end date, price and currency.
+- If there is no matching price for given filter it returns error 404 not found.
+- In case of wrong parameters it returns 400 bad request.
+- For other unexpected exceptions it returns 500 internal server error.
 
 ## Business layer
 [PriceServiceImpl.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fservice%2FPriceServiceImpl.java)
@@ -108,18 +111,18 @@ PriceRepository extends from JPARepository, providing access to query methods.
 
 ## Database layer
 [PriceEntity.java](src%2Fmain%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fdomain%2FPriceEntity.java)
-The database layer reflects the database schema in the entity: [PriceEntity.java](src/main/java/com/sngular/test/inditex/domain/PriceEntity.java)
+The database layer reflects the database schema in the entity.
 
-PriceEntity field price is defined as BigDecimal to 
-- Provide exact decimal arithmetic, avoiding floating-point precision issues
-- Allows specifying precision = 4 and scale = 2. This field must be fixed following database field requirements. 
+Price field is defined as BigDecimal to 
+- Provide exact decimal arithmetic and avoiding floating-point precision issues.
+- Allows specifying precision = 4 and scale = 2. This field has been fixed following database registers samples.
 
-## Database initialization
-Script-base and Hibernate initialization have been enabled on application.yml configuration file for default profiles. 
+### Database initialization
+Script-base and Hibernate initialization have been enabled on application.yml configuration file for default profile. 
 [data.sql](src/main/resources/data.sql)
 [schema.sql](src/main/resources/schema.sql)
 
-For testing, "test" profile is used. Script-base schema initialization is disabled in application-test.yml configuration file. Hibernate creates and drop schema based on Entities.
+For testing, "test" profile is used. Script-base schema initialization is disabled in application-test.yml configuration file. Hibernate creates and drop schema based on the Entities.
 The following scripts are provided for data initialization during testing stage.
 [delete_prices_data.sql](src/test/resources/delete_prices_data.sql)
 [insert_prices_data.sql](src/test/resources/insert_prices_data.sql)
@@ -147,6 +150,6 @@ Centralized exception handling that applies to all controllers in the applicatio
 
 # Tests
 - Integration testing is conducted to verify that required tests 1, 2, 3, 4, and 5 ([TestJava2023 (2).txt](TestJava2023%20%282%29.txt)) pass successfully: [PriceIntegrationTest.java](src%2Ftest%2Fjava%2Fcom%2Fsngular%2Ftest%2Finditex%2Fintegration%2FPriceIntegrationTest.java).
-- Presentation layer is tested on [PriceControllerTest.java](src/test/java/com/sngular/test/inditex/controller/PriceControllerTest.java)
-- Service layer is tested in [PriceServiceTest.java](src/test/java/com/sngular/test/inditex/service/PriceServiceTest.java)
-- Persistence layer is tested in [PriceRepositoryTest.java](src/test/java/com/sngular/test/inditex/repository/PriceRepositoryTest.java)
+- The presentation layer is evaluated to ensure the accuracy of input and output parameters, as well as to assess exception handling behavior on [PriceControllerTest.java](src/test/java/com/sngular/test/inditex/controller/PriceControllerTest.java)
+- The service layer is tested to validate the logic for both, matching and non-matching results, in [PriceServiceTest.java](src/test/java/com/sngular/test/inditex/service/PriceServiceTest.java)
+- The persistence layer is tested to verify the query in [PriceRepositoryTest.java](src/test/java/com/sngular/test/inditex/repository/PriceRepositoryTest.java)
