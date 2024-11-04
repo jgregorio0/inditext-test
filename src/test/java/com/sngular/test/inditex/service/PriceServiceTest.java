@@ -1,11 +1,13 @@
 package com.sngular.test.inditex.service;
 
+import com.sngular.test.inditex.exception.PriceNotFoundException;
 import com.sngular.test.inditex.model.PriceEntity;
 import com.sngular.test.inditex.dto.PriceDto;
 import com.sngular.test.inditex.mapper.PriceMapper;
 import com.sngular.test.inditex.repository.PriceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,7 +31,8 @@ class PriceServiceTest {
     }
 
     @Test
-    void givenProductAndBrandAndDateAndMatchingAPrice_whenGetPrice_thenReturnOptionalPrice() {
+    void givenProductAndBrandAndDateAndMatchingAPrice_whenGetPrice_thenReturnOptionalPrice()
+            throws PriceNotFoundException {
         // GIVEN productId, brandId and date
         int brandId = 2;
         int productId = 4;
@@ -80,7 +83,7 @@ class PriceServiceTest {
     }
 
     @Test
-    void givenProductAndBrandAndDateAndNoMatchingAPrice_whenGetPrice_thenReturnOptionalNull() {
+    void givenProductAndBrandAndDateAndNoMatchingAPrice_whenGetPrice_thenThrowsPriceNotFoundException() {
         // GIVEN
         int productId = 1;
         int brandId = 2;
@@ -91,9 +94,9 @@ class PriceServiceTest {
         // THEN return Optional null
                 .thenReturn(Optional.empty());
         // WHEN get price by productId, brandId and date
-        Optional<PriceDto> result = priceService.getPrice(productId, brandId, date);
-        // THEN result is not present
-        assertFalse(result.isPresent());
+        Executable executable = () -> priceService.getPrice(productId, brandId, date);
+        // THEN throws PriceNotFoundException
+        assertThrows(PriceNotFoundException.class, executable);
         // AND verify repository method has been called
         verify(priceRepository).findFirstByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(
                 productId, brandId, date, date);

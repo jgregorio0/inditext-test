@@ -27,15 +27,8 @@ public class PriceController {
             @RequestParam("productId") int productId,
             @RequestParam("brandId") int brandId,
             @RequestParam("date") @DateTimeFormat(pattern = DATE_TIME_PATTERN) LocalDateTime date)
-                throws PriceNotFoundException {
-        // ResponseEntity already throws 404 when get price returns empty Optional
-        // However, for demonstration of the AdviceController, a custom exception is thrown explicitly
-        //return ResponseEntity.of(priceService.getPrice(productId, brandId, date));
-        return priceService.getPrice(productId, brandId, date)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new PriceNotFoundException(
-                        String.format("No price found for product %d, brand %d and date %s",
-                                productId, brandId, date)));
+            throws PriceNotFoundException {
+        return ResponseEntity.of(priceService.getPrice(productId, brandId, date));
     }
 
 }
